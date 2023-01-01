@@ -1,0 +1,289 @@
+//‰„«Ì‘ ’›ÕÂ
+
+$("#98571777362df6f7fe7d956068983410").css({"backgroundColor":"#ccccff"});
+$("#98571777362df6f7fe7d956068983410").css({"border":"3px double #336699"});
+
+
+$("#title0000000001").css({"font-family":"b Titr","color":"#ffffff","background-color":"#336699","border-radius":"5px"});
+$("#title0000000001").css({"text-align":"center"});
+
+$("#subtitle0000000001").css({"font-family":"b Titr","color":"#ffffff","background-color":"#66CC33","border-radius":"5px"});
+$("#subtitle0000000001").css({"text-align":"center"});
+
+$("#Ext_Jobs").css({"font-family":"b Titr","color":"white","background-color":"#339966","border-radius":"5px"});
+
+$("#Int_Jobs").css({"font-family":"b Titr","color":"white","background-color":"#993366","border-radius":"5px"});
+
+$("#submit0000000001").css({"font-family":"b titr"});
+
+
+
+  $("#Ext_Jobs").hide();
+  $("#Int_Jobs").hide();
+  $("#submit0000000001").hide();
+  $("#Check_Button").hide();
+
+
+//Å— ﬂ—œ‰ ‘—Õ Ê  Ê÷ÌÕ«   --- 
+
+if ($("#Description").getNumberRows() == 1 && $("#Description").getValue (1,1) =="") {
+	$('#Description').getControl($("#Description").getNumberRows(),'2').attr('disabled',false);
+  	$("#Description").setValue($("#txt_name").getValue(),$("#Description").getNumberRows(),'1');
+  }else{
+	$("#Description").addRow();
+	$('#Description').getControl($("#Description").getNumberRows(),'2').attr('disabled',false); 
+    $("#Description").setValue($("#txt_name").getValue(),$("#Description").getNumberRows(),'1');
+  };
+
+
+// ‰„«Ì‘ «ÿ·«⁄«  „«“«œ „—»Êÿ »Â œ«Œ· Ê Œ«—Ã ”«“„«‰
+
+$("#Ext_Int_ID").setOnchange(function(EI_ID,SPC) {
+  
+  EI_ID = $("#Ext_Int_ID").getValue();
+  
+  switch (true) {
+      
+    case (EI_ID == "N") :
+      $("#Ext_Jobs").hide();
+  	  $("#Int_Jobs").show();
+      $("#Check_Button").show();
+      break;
+      
+    case (EI_ID == "X") :
+      $("#Ext_Jobs").show();
+  	  $("#Int_Jobs").hide();
+      $("#Check_Button").show();
+      break;
+      
+    case (EI_ID == "") :
+      $("#Ext_Jobs").hide();
+  	  $("#Int_Jobs").hide(); 
+      $("#Check_Button").hide();
+      break;
+      
+  }
+  
+SPC = $("#System_Personal_Code_Counter").getValue();
+
+switch (true) {
+ 
+  case ( SPC < 9 ):
+    $("#System_Personal_Code").setValue("000"+(parseInt(SPC)+1));
+    break;
+    
+  case ( SPC > 8 &&  SPC < 99 ):
+    $("#System_Personal_Code").setValue("00"+(parseInt(SPC)+1));
+    break;  
+    
+  case ( SPC > 98 &&  SPC < 999 ):
+    $("#System_Personal_Code").setValue("0"+(parseInt(SPC)+1));
+    break; 
+    
+  case ( SPC > 998 ):
+    $("#System_Personal_Code").setValue(parseInt(SPC)+1);
+    break;     
+    
+}
+  
+});
+
+
+// Å— ﬂ—œ‰ ·Ì”  Œ«—Ã «“ ”«“„«‰
+
+$("#Ext_Jobs").onAddRow(function(RN,i) {
+  
+  RN = $("#Ext_Jobs").getNumberRows();
+    
+  for ( i = 1; i < RN+1 ; i++) {
+  
+  switch (true) {
+      
+    case (i == 1):
+      $("#Ext_Jobs").setValue("«’·Ì",i,1);
+      $("#Ext_Jobs").setValue("M",i,6);
+      break;
+      
+    case (i != 1):
+      $("#Ext_Jobs").setValue("›—⁄Ì",i,1);
+      $("#Ext_Jobs").setValue("D",i,6);
+      break;
+      
+    }
+    
+  }
+  
+});
+
+
+// Å— ﬂ—œ‰ ·Ì”  œ«Œ· ”«“„«‰
+
+$("#Int_Jobs").onAddRow(function(RN,i) {
+  
+  RN = $("#Int_Jobs").getNumberRows();
+  
+  for ( i = 1; i < RN+1 ; i++) {
+  
+  switch (true) {
+      
+    case (i == 1):
+      $("#Int_Jobs").setValue("«’·Ì",i,1);
+      $("#Int_Jobs").setValue("M",i,6);
+      break;
+      
+    case (i != 1):
+      $("#Int_Jobs").setValue("›—⁄Ì",i,1);
+      $("#Int_Jobs").setValue("D",i,6);
+      break;
+      
+    }
+    
+  }
+  
+});
+
+
+// «ÌÃ«œ ﬂœ Å—”‰·Ì ”Ì” „Ì
+
+
+
+// »——”Ì «ÿ·«⁄«  „—»Êÿ »Â ‘€·Â«Ì «’·Ì Ê ›—⁄Ì
+
+$("#Check_Button").find("button").click(function(EI,IRN,FVal,CVal,i,j,check) {
+  
+  EI = $("#Ext_Int_ID").getValue();
+  check = "Yes";
+  
+  if ( EI == "N") {
+    
+      IRN = $("#Int_Jobs").getNumberRows();
+      i = 1; 
+      while (i-1 < IRN){
+      
+      	$("#Int_Jobs").getControl(i,3).css("background-color", "");
+        i++;
+      
+      }
+      
+      i = 1;
+      while (i-1 < IRN) {
+    
+      FVal = $("#Int_Jobs").getValue(i,3);
+    
+      if (FVal == "") {
+        
+        alert( "»«Ì” Ì ⁄‰Ê«‰ ‘€·Ì »—«Ì —œÌ› " + i + " «‰ Œ«» ‘Êœ!");
+        $('#Int_Jobs').getControl(i,3).css("background-color", "orange");
+        check = "No";
+        
+      } else {
+      
+        j = i+1;
+      
+        while (j-1 < IRN){
+        
+          CVal = $("#Int_Jobs").getValue(j,3);
+                
+          if (FVal == CVal){
+            alert("—œÌ›Â«Ì " + i + " Ê " + j + " „‘«»Â Â” ‰œ!");
+            $('#Int_Jobs').getControl(i,3).css("background-color", "pink");
+            $('#Int_Jobs').getControl(j,3).css("background-color", "pink");
+            $("#submit0000000001").hide();
+            check = "No";
+          }
+        j++;
+        } 
+
+      }
+    
+      i++;
+    }
+    
+  } 
+  
+  if ( EI == "X" ) {
+    
+      IRN = $('#Ext_Jobs').getNumberRows();
+      i = 1; 
+      while (i-1 < IRN){
+      
+      	$("#Ext_Jobs").getControl(i,3).css("background-color", "");
+        i++;
+      
+      }
+      
+      i = 1;
+      while (i-1 < IRN) {
+    
+      FVal = $("#Ext_Jobs").getValue(i,3);
+    
+      if (FVal == "") {
+        
+        alert( "»«Ì” Ì ⁄‰Ê«‰ ‘€·Ì »—«Ì —œÌ› " + i + " «‰ Œ«» ‘Êœ!");
+        $('#Ext_Jobs').getControl(i,3).css("background-color", "orange");
+        check = "No";
+        
+      } else {
+      
+        j = i+1;
+      
+        while (j-1 < IRN){
+        
+          CVal = $("#Ext_Jobs").getValue(j,3);
+                
+          if (FVal == CVal){
+            alert("—œÌ›Â«Ì " + i + " Ê " + j + " „‘«»Â Â” ‰œ!");
+            $('#Ext_Jobs').getControl(i,3).css("background-color", "pink");
+            $('#Ext_Jobs').getControl(j,3).css("background-color", "pink");
+            $("#submit0000000001").hide();
+            check = "No";
+          }
+        j++;
+        } 
+
+      }
+    
+      i++;
+    }
+      
+  }
+  
+    if ( check == "Yes" && EI == "X") {
+    
+    $("#submit0000000001").show();
+    
+    i = 1; 
+      while (i-1 < ERN){
+      
+      	$('#Ext_Jobs').getControl(i,3).css("background-color", "lightgreen");
+      	i++;
+      
+      }
+    
+  } else if ( check == "Yes" && EI == "N") {
+    
+    $("#submit0000000001").show();
+    
+    i = 1; 
+      while (i-1 < IRN){
+      
+      	$('#Int_Jobs').getControl(i,3).css("background-color", "lightgreen");
+      	i++;
+      
+      }
+    
+    
+  } else {
+    
+    $("#submit0000000001").hide();
+    
+  }
+
+});
+
+
+$("#98571777362df6f7fe7d956068983410").setOnchange(function() {
+  
+  $("#submit0000000001").hide();
+  
+});

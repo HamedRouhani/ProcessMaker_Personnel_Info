@@ -1,0 +1,331 @@
+$Registered_By_USR_UID = @@ExecuteID;
+$Requested_By_USR_UID = @@RequestID;
+$Time_Stamp = @@Time_Stamp;
+
+$Personnel_Code = @@Personnel_Code;
+$System_Personal_Code = @@System_Personal_Code;
+$First_Name = @@First_Name;
+$Last_Name = @@Last_Name;
+$National_Code = @@National_Code;
+$Cell_Phone = @@Cell_Phone;
+$Ext_Int_ID = @@Ext_Int_ID;
+$Email = @@Email;
+$ID_Detector = @@ID_Detector;
+
+
+if (@@Select_Reg_Type == '1') 
+{	
+	
+$IsDelete = 0;
+$IsActive = 1;	
+
+$Insert_sql = "INSERT INTO PMT_TB110005 
+(Registered_By_USR_UID
+,Requested_By_USR_UID
+,Time_Stamp
+,IsDelete
+,IsActive
+,Personnel_Code
+,System_Personal_Code
+,First_Name
+,Last_Name
+,National_Code
+,Cell_Phone
+,Ext_Int_ID
+,Email)
+
+VALUES 
+('$Registered_By_USR_UID'
+,'$Requested_By_USR_UID'
+,'$Time_Stamp'
+,'$IsDelete'
+,'$IsActive'
+,'$Personnel_Code'
+,'$System_Personal_Code'
+,'$First_Name'
+,'$Last_Name'
+,'$National_Code'
+,'$Cell_Phone'
+,'$Ext_Int_ID'
+,'$Email')";
+
+executeQuery ($Insert_sql);
+	
+	if (@@Ext_Int_ID == 'N') {
+		for ($i = 1; $i <= count(@=Int_Jobs); $i++) {	
+   			$row = @=Int_Jobs[$i];
+   			$Job_Type = mysql_real_escape_string($row['Int_Job_Type']);
+   			$ORG_Job_Code = mysql_real_escape_string($row['Int_ORG_Job_Code']);
+			$ORG_Job_Title = mysql_real_escape_string($row['Int_ORG_Job_Title']);
+   		$subsql = "INSERT INTO PMT_TB120014 
+   		(Registered_By_USR_UID,
+   		Requested_By_USR_UID,
+  		Time_Stamp,
+   		IsDelete,
+   		IsActive,
+   		ORG_Job_Code,
+   		ORG_Job_Title,
+   		Job_Type,
+   		Ext_Int_ID,
+   		System_Personal_Code,
+   		ORG_Job_Code_Rank) 
+			VALUE ('$Registered_By_USR_UID',
+			'$Requested_By_USR_UID',
+			'$Time_Stamp',
+			'$IsDelete',
+			'$IsActive',
+			'$ORG_Job_Code',
+			'$ORG_Job_Title',
+			'$Job_Type',
+			'$Ext_Int_ID',
+			'$System_Personal_Code',
+			'$i')";
+			
+		executeQuery ($subsql);
+		
+		}
+	}
+	
+	if (@@Ext_Int_ID == 'X') {
+		for ($i = 1; $i <= count(@=Ext_Jobs); $i++) {	
+   			$row = @=Ext_Jobs[$i];
+   			$Job_Type = mysql_real_escape_string($row['Ext_Job_Type']);
+   			$ORG_Job_Code = mysql_real_escape_string($row['Ext_ORG_Job_Code']);
+			$ORG_Job_Title = mysql_real_escape_string($row['Ext_ORG_Job_Title']);
+   		$subsql = "INSERT INTO PMT_TB120014 
+   		(Registered_By_USR_UID,
+   		Requested_By_USR_UID,
+  		Time_Stamp,
+   		IsDelete,
+   		IsActive,
+   		ORG_Job_Code,
+   		ORG_Job_Title,
+   		Job_Type,
+   		Ext_Int_ID,
+   		System_Personal_Code,
+   		ORG_Job_Code_Rank) 
+			VALUE ('$Registered_By_USR_UID',
+			'$Requested_By_USR_UID',
+			'$Time_Stamp',
+			'$IsDelete',
+			'$IsActive',
+			'$ORG_Job_Code',
+			'$ORG_Job_Title',
+			'$Job_Type',
+			'$Ext_Int_ID',
+			'$System_Personal_Code',
+			'$i')";
+			
+		executeQuery ($subsql);
+		
+		}
+	}
+}
+
+if (@@Select_Reg_Type =='2') 
+
+{
+	
+$IsDelete = 0;
+$IsActive = 0;	
+	
+$Update_sql = "UPDATE PMT_TB110005 SET
+Registered_By_USR_UID = '$Registered_By_USR_UID',
+Requested_By_USR_UID = '$Requested_By_USR_UID',
+Time_Stamp = '$Time_Stamp',
+IsDelete = '$IsDelete',
+IsActive = '$IsActive'
+WHERE ID = '$ID_Detector'";
+	
+executeQuery ($Update_sql);
+
+if (@@Ext_Int_ID == 'N') {
+	
+for ($i = 1; $i <= count(@=Int_Jobs_Finder); $i++) {	
+   $row = @=Int_Jobs_Finder[$i];
+
+$subsqlUpdate = "UPDATE PMT_TB120014 SET
+Registered_By_USR_UID = '$Registered_By_USR_UID',
+Confirmed_By_USR_UID = '$Confirmed_By_USR_UID',
+Requested_By_USR_UID = '$Requested_By_USR_UID',
+Time_Stamp = '$Time_Stamp',
+IsDelete = '$IsDelete',
+IsActive = '$IsActive' 
+WHERE Subject_Code_Rank = '$i' and System_Personal_Code = '$System_Personal_Code'";
+	
+}
+}
+	
+if (@@Ext_Int_ID == 'X') {
+	
+for ($i = 1; $i <= count(@=Ext_Jobs_Finder); $i++) {	
+   $row = @=Ext_Jobs_Finder[$i];
+
+$subsqlUpdate = "UPDATE PMT_TB120014 SET
+Registered_By_USR_UID = '$Registered_By_USR_UID',
+Confirmed_By_USR_UID = '$Confirmed_By_USR_UID',
+Requested_By_USR_UID = '$Requested_By_USR_UID',
+Time_Stamp = '$Time_Stamp',
+IsDelete = '$IsDelete',
+IsActive = '$IsActive' 
+WHERE Subject_Code_Rank = '$i' and System_Personal_Code = '$System_Personal_Code'";
+	
+}
+}	
+	
+$IsDelete = 0;
+$IsActive = 1;	
+
+$Insert_sql = "INSERT INTO PMT_TB110005 
+(Registered_By_USR_UID
+,Requested_By_USR_UID
+,Time_Stamp
+,IsDelete
+,IsActive
+,Personnel_Code
+,System_Personal_Code
+,First_Name
+,Last_Name
+,National_Code
+,Cell_Phone
+,Ext_Int_ID
+,Email)
+
+VALUES 
+('$Registered_By_USR_UID'
+,'$Requested_By_USR_UID'
+,'$Time_Stamp'
+,'$IsDelete'
+,'$IsActive'
+,'$Personnel_Code'
+,'$System_Personal_Code'
+,'$First_Name'
+,'$Last_Name'
+,'$National_Code'
+,'$Cell_Phone'
+,'$Ext_Int_ID'
+,'$Email')";
+
+executeQuery ($Insert_sql);
+	
+	if (@@Ext_Int_ID == 'N') {
+		for ($i = 1; $i <= count(@=Int_Jobs); $i++) {	
+   			$row = @=Int_Jobs[$i];
+   			$Job_Type = mysql_real_escape_string($row['Int_Job_Type']);
+   			$ORG_Job_Code = mysql_real_escape_string($row['Int_ORG_Job_Code']);
+			$ORG_Job_Title = mysql_real_escape_string($row['Int_ORG_Job_Title']);
+   		$subsql = "INSERT INTO PMT_TB120014 
+   		(Registered_By_USR_UID,
+   		Requested_By_USR_UID,
+  		Time_Stamp,
+   		IsDelete,
+   		IsActive,
+   		ORG_Job_Code,
+   		ORG_Job_Title,
+   		Job_Type,
+   		Ext_Int_ID,
+   		System_Personal_Code,
+   		ORG_Job_Code_Rank) 
+			VALUE ('$Registered_By_USR_UID',
+			'$Requested_By_USR_UID',
+			'$Time_Stamp',
+			'$IsDelete',
+			'$IsActive',
+			'$ORG_Job_Code',
+			'$ORG_Job_Title',
+			'$Job_Type',
+			'$Ext_Int_ID',
+			'$System_Personal_Code',
+			'$i')";
+			
+		executeQuery ($subsql);
+		
+		}
+	}
+	
+	if (@@Ext_Int_ID == 'X') {
+		for ($i = 1; $i <= count(@=Ext_Jobs); $i++) {	
+   			$row = @=Ext_Jobs[$i];
+   			$Job_Type = mysql_real_escape_string($row['Ext_Job_Type']);
+   			$ORG_Job_Code = mysql_real_escape_string($row['Ext_ORG_Job_Code']);
+			$ORG_Job_Title = mysql_real_escape_string($row['Ext_ORG_Job_Title']);
+   		$subsql = "INSERT INTO PMT_TB120014 
+   		(Registered_By_USR_UID,
+   		Requested_By_USR_UID,
+  		Time_Stamp,
+   		IsDelete,
+   		IsActive,
+   		ORG_Job_Code,
+   		ORG_Job_Title,
+   		Job_Type,
+   		Ext_Int_ID,
+   		System_Personal_Code,
+   		ORG_Job_Code_Rank) 
+			VALUE ('$Registered_By_USR_UID',
+			'$Requested_By_USR_UID',
+			'$Time_Stamp',
+			'$IsDelete',
+			'$IsActive',
+			'$ORG_Job_Code',
+			'$ORG_Job_Title',
+			'$Job_Type',
+			'$Ext_Int_ID',
+			'$System_Personal_Code',
+			'$i')";
+			
+		executeQuery ($subsql);
+		
+		}
+	}
+}
+
+if (@@Select_Reg_Type == '3') 
+{
+	
+$IsDelete = 1;
+$IsActive = 0;	
+	
+$Update_sql = "UPDATE PMT_TB110005 SET
+Registered_By_USR_UID = '$Registered_By_USR_UID',
+Requested_By_USR_UID = '$Requested_By_USR_UID',
+Time_Stamp = '$Time_Stamp',
+IsDelete = '$IsDelete',
+IsActive = '$IsActive'
+WHERE ID = '$ID_Detector'";
+	
+executeQuery ($Update_sql);
+
+if (@@Ext_Int_ID == 'N') {
+	
+for ($i = 1; $i <= count(@=Int_Jobs_Finder); $i++) {	
+   $row = @=Int_Jobs_Finder[$i];
+
+$subsqlUpdate = "UPDATE PMT_TB120014 SET
+Registered_By_USR_UID = '$Registered_By_USR_UID',
+Confirmed_By_USR_UID = '$Confirmed_By_USR_UID',
+Requested_By_USR_UID = '$Requested_By_USR_UID',
+Time_Stamp = '$Time_Stamp',
+IsDelete = '$IsDelete',
+IsActive = '$IsActive' 
+WHERE Subject_Code_Rank = '$i' and System_Personal_Code = '$System_Personal_Code'";
+	
+}
+}
+	
+if (@@Ext_Int_ID == 'X') {
+	
+for ($i = 1; $i <= count(@=Ext_Jobs_Finder); $i++) {	
+   $row = @=Ext_Jobs_Finder[$i];
+
+$subsqlUpdate = "UPDATE PMT_TB120014 SET
+Registered_By_USR_UID = '$Registered_By_USR_UID',
+Confirmed_By_USR_UID = '$Confirmed_By_USR_UID',
+Requested_By_USR_UID = '$Requested_By_USR_UID',
+Time_Stamp = '$Time_Stamp',
+IsDelete = '$IsDelete',
+IsActive = '$IsActive' 
+WHERE Subject_Code_Rank = '$i' and System_Personal_Code = '$System_Personal_Code'";
+	
+}
+}
+}

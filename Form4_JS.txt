@@ -1,0 +1,31 @@
+//‰„«Ì‘ ’›ÕÂ
+
+$("#61358642562df6f93644e60087027086").css({"backgroundColor":"#ccccff"});
+$("#61358642562df6f93644e60087027086").css({"border":"3px double #336699"});
+
+
+$("#title0000000001").css({"font-family":"b Titr","color":"#ffffff","background-color":"#336699","border-radius":"5px"});
+$("#title0000000001").css({"text-align":"center"});
+
+$("#subtitle0000000001").css({"font-family":"b Titr","color":"#ffffff","background-color":"#66CC33","border-radius":"5px"});
+$("#subtitle0000000001").css({"text-align":"center"});
+
+$("#Description").css({"color":"white","background-color":"green","border-radius":"5px"});
+
+$("#Ext_Jobs").css({"color":"white","background-color":"#663399","border-radius":"5px"});
+
+$("#Int_Jobs").css({"color":"white","background-color":"#993366","border-radius":"5px"});
+
+$("#submit0000000001").css({"font-family":"b titr"});
+
+
+//Å— ﬂ—œ‰ ‘—Õ Ê  Ê÷ÌÕ«   --- 
+
+if ($("#Description").getNumberRows() == 1 && $("#Description").getValue (1,1) =="") {
+	$('#Description').getControl($("#Description").getNumberRows(),'2').attr('disabled',false);
+  	$("#Description").setValue($("#txt_name").getValue(),$("#Description").getNumberRows(),'1');
+  }else{
+	$("#Description").addRow();
+	$('#Description').getControl($("#Description").getNumberRows(),'2').attr('disabled',false); 
+    $("#Description").setValue($("#txt_name").getValue(),$("#Description").getNumberRows(),'1');
+  };

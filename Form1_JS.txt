@@ -1,0 +1,203 @@
+// ‰„«Ì‘ ’›ÕÂ œ— ·Êœ «Ê·ÌÂ
+
+$("#63961791962df6f6d9817e0033638766").css({"backgroundColor":"#ccccff"});
+$("#63961791962df6f6d9817e0033638766").css({"border":"3px double #336699"});
+
+
+$("#title0000000001").css({"font-family":"b Titr","color":"#ffffff","background-color":"#336699","border-radius":"5px"});
+$("#title0000000001").css({"text-align":"center"});
+
+$("#subtitle0000000001").css({"font-family":"b Titr","color":"#ffffff","background-color":"#66CC33","border-radius":"5px"});
+$("#subtitle0000000001").css({"text-align":"center"});
+
+$("#Description").css({"color":"white","background-color":"green","border-radius":"5px"});
+
+$("#Ext_Jobs_Finder").css({"color":"white","background-color":"#663399","border-radius":"5px"});
+
+$("#Int_Jobs_Finder").css({"color":"white","background-color":"#993366","border-radius":"5px"});
+
+$("#submit0000000001").css({"font-family":"b titr"});
+
+$("#Ext_Int_ID").hide();
+$("#Job_Counter").hide();
+$("#submit0000000001").hide();
+$("#ID_Detector_Search").hide();
+$("#ID_Detector").hide();
+$("#First_Name").hide();
+$("#Last_Name").hide();
+$("#Personnel_Code").hide();
+$("#National_Code").hide();
+$("#Email").hide();
+$("#Cell_Phone").hide();
+$("#Ext_Int_ID_Show").hide();
+$("#System_Personal_Code").hide();
+$("#Ext_Jobs_Finder").hide();
+$("#Int_Jobs_Finder").hide();
+
+//Å— ﬂ—œ‰ ‘—Õ Ê  Ê÷ÌÕ«   --- 
+
+if ($("#Description").getNumberRows() == 1 && $("#Description").getValue (1,1) =="") {
+	$('#Description').getControl($("#Description").getNumberRows(),'2').attr('disabled',false);
+  	$("#Description").setValue($("#txt_name").getValue(),$("#Description").getNumberRows(),'1');
+  }else{
+	$("#Description").addRow();
+	$('#Description').getControl($("#Description").getNumberRows(),'2').attr('disabled',false); 
+    $("#Description").setValue($("#txt_name").getValue(),$("#Description").getNumberRows(),'1');
+  };
+
+// ‰„«Ì‘ ”„  »—«Ì ›—œ Œ«—Ã /œ«Œ· ”«“„«‰ »’Ê—  « Ê„« Ìﬂ
+
+$("#Ext_Jobs_Finder").deleteRow();
+$("#Int_Jobs_Finder").deleteRow();
+
+$("#ID_Detector").setOnchange(function(EI,SPC,JCR,IDD) {
+  
+  EI = $("#Ext_Int_ID").getValue();
+  IDD = $("#ID_Detector").getValue();
+  SPC = $("#System_Personal_Code").getValue();
+  JCR = $("#ORG_Job_Code_Rank_Finder").getValue();
+  
+  switch (true) {
+      
+    case (EI == 'X' && IDD != ""):
+      
+      $("#Ext_Jobs_Finder").show();
+      $("#Int_Jobs_Finder").hide();
+      $("#submit0000000001").show();
+      $("#Ext_Int_ID_Show").setValue("Œ«—ÃÌ");
+
+  		var rows = $("#Ext_Jobs_Finder").getNumberRows();
+    		for (var i=1; i <= rows; i++) {
+        		$("#Ext_Jobs_Finder").deleteRow();
+    		}
+  
+  		for (var i= 1 ; i <= parseInt($("#Job_Counter").getValue()); i++) {
+
+    		$("#Ext_Jobs_Finder").addRow();
+    		$("#Ext_Jobs_Finder").setValue(EI,i,4);
+    		$("#Ext_Jobs_Finder").setValue(SPC,i,5);
+    		$("#Ext_Jobs_Finder").setValue(i,i,6);
+    
+    		if ($("#Ext_Jobs_Finder").getValue(i,7) == 'M') {
+      
+      			$("#Ext_Jobs_Finder").setValue("«’·Ì",i,1);
+
+    		} else if ($("#Ext_Jobs_Finder").getValue(i,7) == 'D') {
+      
+      			$("#Ext_Jobs_Finder").setValue("›—⁄Ì",i,1);
+      
+    		}
+    
+  		}
+      
+
+    case (EI == 'N' && IDD !=""):
+
+      $("#Ext_Jobs_Finder").hide();
+      $("#Int_Jobs_Finder").show();
+      $("#submit0000000001").show();
+      $("#Ext_Int_ID_Show").setValue("œ«Œ·Ì");
+      
+  		var rows = $("#Int_Jobs_Finder").getNumberRows();
+    		for (var i=1; i <= rows; i++) {
+        		$("#Int_Jobs_Finder").deleteRow();
+    		}
+  
+  		for (var i= 1 ; i <= parseInt($("#Job_Counter").getValue()); i++) {
+
+    		$("#Int_Jobs_Finder").addRow();
+    		$("#Int_Jobs_Finder").setValue(EI,i,4);
+    		$("#Int_Jobs_Finder").setValue(SPC,i,5);
+    		$("#Int_Jobs_Finder").setValue(i,i,6);
+    
+    		if ($("#Int_Jobs_Finder").getValue(i,7) == 'M') {
+      
+      			$("#Int_Jobs_Finder").setValue("«’·Ì",i,1);
+
+    		} else if ($("#Int_Jobs_Finder").getValue(i,7) == 'D') {
+      
+      			$("#Int_Jobs_Finder").setValue("›—⁄Ì",i,1);
+      
+    		}
+          
+  		} 
+
+  }
+
+});
+
+// ﬂ‰ —· ›Ì·œÂ«Ì ›—„
+
+$("#Select_Reg_Type").setOnchange(function(RST) {
+  
+  RST = $("#Select_Reg_Type").getValue();
+  
+  switch (true) {
+      
+    case ( RST == '') : 
+      $("#submit0000000001").hide();
+      $("#ID_Detector_Search").hide();
+      $("#ID_Detector").hide();
+      $("#First_Name").hide();
+      $("#Last_Name").hide();
+      $("#Personnel_Code").hide();
+      $("#National_Code").hide();
+      $("#Email").hide();
+      $("#Cell_Phone").hide();
+      $("#Ext_Int_ID_Show").hide();
+      $("#System_Personal_Code").hide();
+      $("#Ext_Jobs_Finder").hide();
+      $("#Int_Jobs_Finder").hide();
+      $("#ID_Detector").setValue("");
+      break;      
+      
+    case ( RST == '1') : 
+      $("#submit0000000001").show();
+      $("#ID_Detector_Search").hide();
+      $("#ID_Detector").hide();
+      $("#First_Name").hide();
+      $("#Last_Name").hide();
+      $("#Personnel_Code").hide();
+      $("#National_Code").hide();
+      $("#Email").hide();
+      $("#Cell_Phone").hide();
+      $("#Ext_Int_ID_Show").hide();
+      $("#System_Personal_Code").hide();
+      $("#Ext_Jobs_Finder").hide();
+      $("#Int_Jobs_Finder").hide();
+      $("#ID_Detector").setValue("");
+      break;
+      
+    case (RST == '2' || RST == '3') : 
+      $("#submit0000000001").hide();
+      $("#ID_Detector_Search").show();
+      $("#ID_Detector").show();
+      $("#First_Name").show();
+      $("#Last_Name").show();
+      $("#Personnel_Code").show();
+      $("#National_Code").show();
+      $("#Email").show();
+      $("#Cell_Phone").show();
+      $("#Ext_Int_ID_Show").show();
+      $("#System_Personal_Code").show();
+      break;
+      
+  }
+  
+});
+  
+        
+$("#63961791962df6f6d9817e0033638766").setOnchange(function(IDD,RST) {
+  
+  IDD = $("#ID_Detector").getValue();
+  RST = $("#Select_Reg_Type").getValue();
+  
+  if (IDD == "" && RST !="1"){
+    
+    $("#submit0000000001").hide();
+    $("#Ext_Jobs_Finder").hide();
+    $("#Int_Jobs_Finder").hide();
+    
+  }
+  
+});
